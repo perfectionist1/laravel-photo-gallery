@@ -39,4 +39,33 @@ class GalleryController extends Controller
             return redirect()->route('gallery.index')->with('success', 'Photo Saved');
         }
     }
+
+    public function edit($id){
+        $galleries = DB::table('gallery')->where('id', $id)->first();
+        return view('gallery.edit', compact('galleries'));
+    }
+
+    public function update(Request $request, $id){
+
+        $old_photo = $request->photo_gallery_old;
+
+        $data = array();
+        $data['name'] = $request->photo_name ;
+        $data['description'] = $request->photo_description;
+        $image = $request->file('photo_gallery');
+
+        if($image){
+            unlink($old_photo);
+            $image_name = date('dmy_H_s_i');
+            $ext = strtolower($image->getClientOriginalExtension());
+            $image_full_name = $image_name .'.' . $ext;
+            $upload_path = 'media/';
+            $image_url = $upload_path.$image_full_name;
+            $success = $image->move($upload_path, $image_full_name);
+
+            $data['photo'] = $image_url;
+            $gallery = DB::table('gallery')->where('id', $id)->update($data);
+            return redirect()->route('gallery.index')->with('success', 'Photo Updated');
+        }
+    }
 }

@@ -26,4 +26,5 @@ Route::get('create', 'GalleryController@create')->name('gallery.create');
 Route::post('store', 'GalleryController@store')->name('gallery.store');
 
 // Route::get('/home', 'HomeController@index')->name('home');
- 
+Route::get('edit/product/{id}', 'GalleryController@edit');
+Route::post('update/gallery/{id}', 'GalleryController@update');

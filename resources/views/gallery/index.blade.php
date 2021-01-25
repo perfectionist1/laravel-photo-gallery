@@ -17,7 +17,7 @@
                     <p>{{ $message }}</p>
                 </div>
             @endif
-
+            
             <table class="table table-bordered table-hover">
                 <tr class="text-center">
                     <th> Id</th>
@@ -29,18 +29,17 @@
                 @foreach($gallery as $galleryItem)         
                     <tr class="text-center">                
                         <td> {{ $galleryItem->id }}</td>
-                        <?php 
-                            // echo "<pre>";
-                            // print_r($galleryItem);
-                            // echo "</pre>";
-                        
-                        ?>
+                            <?php 
+                                // echo "<pre>";
+                                // print_r($galleryItem);
+                                // echo "</pre>";                        
+                            ?>
                         <td> {{ $galleryItem->name }}</td>
                         <td> {{ $galleryItem->description }}</td>
                         <td> <img src="{{ URL::to($galleryItem->photo) }}" height="70px" alt="" /></td>
                         <td> 
                             <a class="btn btn-info" href="">Show</a>
-                            <a class="btn btn-primary" href="">Edit</a>
+                            <a class="btn btn-primary" href="{{ URL::to('/edit/product/'. $galleryItem->id) }}">Edit</a>
                             <a class="btn btn-danger" href="">Delete</a>
                         </td>               
                     </tr>
