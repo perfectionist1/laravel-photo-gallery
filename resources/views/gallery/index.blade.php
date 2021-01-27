@@ -38,13 +38,15 @@
                         <td> {{ $galleryItem->description }}</td>
                         <td> <img src="{{ URL::to($galleryItem->photo) }}" height="70px" alt="" /></td>
                         <td> 
-                            <a class="btn btn-info" href="">Show</a>
-                            <a class="btn btn-primary" href="{{ URL::to('/edit/product/'. $galleryItem->id) }}">Edit</a>
-                            <a class="btn btn-danger" href="">Delete</a>
+                            <a class="btn btn-info" href="{{ URL::to('show/gallery/'. $galleryItem->id) }}">Show</a>
+                            <a class="btn btn-primary" href="{{ URL::to('edit/gallery/'. $galleryItem->id) }}">Edit</a>
+                            <a class="btn btn-danger" href="{{ URL::to('delete/gallery/'. $galleryItem->id) }}"
+                            onclick="return confirm('Are you sure you want to delete')">Delete</a>
                         </td>               
                     </tr>
                 @endforeach
             </table>
+                {!! $gallery->links() !!}
         </div>
     </div>
 @endsection

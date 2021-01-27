@@ -11,6 +11,7 @@ class GalleryController extends Controller
     public function index(){
 
         $gallery = DB::table('gallery')->get();
+        $gallery = DB::table('gallery')->latest()->paginate(2);
 
         return view('gallery.index', compact('gallery'));
     }
@@ -68,4 +69,19 @@ class GalleryController extends Controller
             return redirect()->route('gallery.index')->with('success', 'Photo Updated');
         }
     }
+
+    public function delete($id){
+        $data = DB::table('gallery')->where('id', $id)->first();
+        $image = $data->photo;
+        unlink($image);
+        $gallery = DB::table('gallery')->where('id', $id)->delete();        
+        return redirect()->route('gallery.index')->with('success', 'Photo Updated');
+
+    }
+
+    public function show($id){
+        $data = DB::table('gallery')->where('id', $id)->first();
+        return view('gallery.show', compact('data'));
+    }
+
 }
